@@ -3,28 +3,11 @@
 #include "User.h"
 #include "AnonymousUsers.h"
 #include <locale.h>
-#include <unordered_map>
 #define password_file "password.txt"
 #define password_test_file "passwordtest.txt"
 using namespace std;
-unordered_map<int, list<int>> map;
 int main() {
 	setlocale(LC_ALL, "en_US.UTF-8");
-	for (int i = 1; i < 256; i++)
-	{
-		int step = PasswordManager::collatz(i);
-		unordered_map<int, list<int>>::iterator it;
-		it = map.find(step);
-		if (it != map.end()) {
-			it->second.push_back(i);
-		}
-		else {
-			list<int> lt;
-			lt.push_back(i);
-			map.insert(make_pair(step, lt));
-		}
-
-	}
 	while (true) {
 		int choice;
 		cout << "1. Create a new account." << endl;
@@ -80,24 +63,7 @@ int main() {
 			break;
 		}
 		case 4: {
-			/*int j = 0;
-			int jj = 0;
-			int jjj = 0;
-			for (int i = 1; i < 256; i++)
-			{
-				
-				int step = PasswordManager::collatz(i);
-				if (0 <= step && step <= 10)
-					j++;
-				else if (11 <= step && step <= 99)
-					jj++;
-				else
-					jjj++;
-			}
-			cout << j << endl;
-			cout << jj << endl;
-			cout << jjj << endl;*/
-			
+			PasswordManager::decrypt("25");
 		}
 		case 5: {
 			exit(1);
@@ -108,17 +74,5 @@ int main() {
 			break;
 		}
 		}
-		/*User user("luojunlin", L"dnf528571@");
-		user.save(password_file);
-
-		try {
-			cout<<user.authenticate(password_file);
-		}
-		catch (exception& excep) {
-			cout << excep.what();
-		}
-
-		AnonymousUsers user2(PasswordManager::generate_password());
-		user2.save(password_test_file);*/
 	}
 }

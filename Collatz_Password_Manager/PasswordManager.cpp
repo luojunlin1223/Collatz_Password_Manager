@@ -1,5 +1,6 @@
 #include "PasswordManager.h"
-
+#include <unordered_map>
+#include <iostream>
 PasswordManager::PasswordManager(){
 }
 PasswordManager::~PasswordManager() {}
@@ -24,46 +25,77 @@ string PasswordManager::encrypt(wstring password) {
 	}
 	return encrypted;
 }
-wstring PasswordManager::decrypt(string password) { 
+wstring PasswordManager::decrypt(string password) {
+	unordered_map<int, list<int>> map;
+	wstring fin_password;
+	for (int i = 1; i < 256; i++)
+	{
+		int step = PasswordManager::collatz(i);
+		unordered_map<int, list<int>>::iterator it;
+		it = map.find(step);
+		if (it != map.end()) {
+			it->second.push_back(i);
+		}
+		else {
+			list<int> lt;
+			lt.push_back(i);
+			map.insert(make_pair(step, lt));
+		}
 
-	return  L""; 
+	}
+	unordered_map<int, list<int>>::iterator map_it;
+	vector<int> openlist, closelist;
+	string temp;
+	if (password.size() == 1) {
+		map_it=map.find(password[0]-'0');
+		for (list<int>::iterator list_it = map_it->second.begin(); list_it != map_it->second.end();list_it++) {
+			std::cout << *list_it << endl;
+		}
+	}
+	else {
+		while (password != temp) {
+			if (password.size() == 2) {
+			}
+		}
+
+	}
+	return  fin_password; 
 }
 string PasswordManager::generate_password() {
 	string password;
-	for (int i = 1; i <10000 ; i++)
+	for (int i = 1; i <10001 ; i++)
 	{
-		password += encrypt(mode1((i - 1) / 100 + 1)) + '\n';
+		if (i % 100 == 0)
+			password += encrypt(mode1(i / 100)) + '\n';
+		else
+			password += encrypt(mode1((i - 1) / 100 + 1)) + '\n';
 	}
-	for (int i = 1; i < 10000; i++)
+	for (int i = 1; i < 10001; i++)
 	{
-
-		password += encrypt(mode2((i - 1) / 100 + 1)) + '\n';
+		if (i % 100 == 0)
+			password += encrypt(mode2(i / 100)) + '\n';
+		else
+			password += encrypt(mode2((i - 1) / 100 + 1)) + '\n';
 	}
 	
 	return password;
 }
 wstring PasswordManager::mode1(int length) {
 	wstring password;
-	int count = 10;
-	for (size_t i = 0; i < length; i++)
-	{
-		int ascii = rand() % 256;
-		if (iswprint(ascii)) {
-			if ('a' <= ascii && ascii <= 'z') {
-				if (count > 0) {
-					count--;
-					password.push_back(wchar_t(ascii));
-				}
-				else
-					i--;
-			}
-			else {
-				password.push_back(wchar_t(ascii));
-			}
-		}
-		else
-			i--;
+	vector<int> temp;
+	vector<int>::iterator it;
+	while (temp.size() < 10) {
+		int ascii = rand() % ('z' - 'a'+1) + 'a';
+		it = find(temp.begin(), temp.end(), ascii);
+		if (it == temp.end())
+			temp.push_back(ascii);
 	}
+	for (int i = 0; i < length; i++)
+	{
+		password.push_back(wchar_t(temp.at(rand() % (9 - 0 + 1) + 0)));
+		
+	}
+	
 	return password;
 }
 wstring PasswordManager::mode2(int length) {
