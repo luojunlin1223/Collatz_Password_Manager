@@ -1,5 +1,4 @@
 #include "PasswordManager.h"
-#include <unordered_map>
 #include <iostream>
 PasswordManager::PasswordManager(){
 }
@@ -25,41 +24,7 @@ string PasswordManager::encrypt(wstring password) {
 	}
 	return encrypted;
 }
-wstring PasswordManager::decrypt(string password) {
-	unordered_map<int, list<int>> map;
-	wstring fin_password;
-	for (int i = 1; i < 256; i++)
-	{
-		int step = PasswordManager::collatz(i);
-		unordered_map<int, list<int>>::iterator it;
-		it = map.find(step);
-		if (it != map.end()) {
-			it->second.push_back(i);
-		}
-		else {
-			list<int> lt;
-			lt.push_back(i);
-			map.insert(make_pair(step, lt));
-		}
-
-	}
-	unordered_map<int, list<int>>::iterator map_it;
-	vector<int> openlist, closelist;
-	string temp;
-	if (password.size() == 1) {
-		map_it=map.find(password[0]-'0');
-		for (list<int>::iterator list_it = map_it->second.begin(); list_it != map_it->second.end();list_it++) {
-			std::cout << *list_it << endl;
-		}
-	}
-	else {
-		while (password != temp) {
-			if (password.size() == 2) {
-			}
-		}
-
-	}
-	return  fin_password; 
+void PasswordManager::backtracking(int n, int k, int startindex) {
 }
 string PasswordManager::generate_password() {
 	string password;
