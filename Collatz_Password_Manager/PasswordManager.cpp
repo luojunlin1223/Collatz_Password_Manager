@@ -24,26 +24,36 @@ string PasswordManager::encrypt(wstring password,int _offset) {
 	}
 	return encrypted;
 }
-void PasswordManager::backtracking(int n, int k, int startindex) {
-}
-string PasswordManager::generate_password() {
-	string password;
+void PasswordManager::generate_password() {
 	for (int i = 1; i <10001 ; i++)
 	{
 		if (i % 100 == 0)
-			password += encrypt(mode1(i / 100),0) + '\n';
+		{
+			wstring temp = mode1(i / 100);
+			password += encrypt(temp, 0) + '\n';
+			origin += temp + L"\n";
+		}
 		else
-			password += encrypt(mode1((i - 1) / 100 + 1),0) + '\n';
+		{
+			wstring temp = mode1((i - 1) / 100 + 1);
+			password += encrypt(temp, 0) + '\n';
+			origin += temp + L"\n";
+		}
+
 	}
 	for (int i = 1; i < 10001; i++)
 	{
-		if (i % 100 == 0)
-			password += encrypt(mode2(i / 100),0) + '\n';
-		else
-			password += encrypt(mode2((i - 1) / 100 + 1),0) + '\n';
+		if (i % 100 == 0) {
+			wstring temp = mode2(i / 100);
+			password += encrypt(temp, 0) + '\n';
+			origin += temp + L"\n";
+		}
+		else {
+			wstring temp = mode2((i - 1) / 100 + 1);
+			password += encrypt(temp, 0) + '\n';
+			origin += temp + L"\n";
+		}
 	}
-	
-	return password;
 }
 wstring PasswordManager::mode1(int length) {
 	wstring password;
@@ -58,9 +68,7 @@ wstring PasswordManager::mode1(int length) {
 	for (int i = 0; i < length; i++)
 	{
 		password.push_back(wchar_t(temp.at(rand() % (9 - 0 + 1) + 0)));
-		
 	}
-	
 	return password;
 }
 wstring PasswordManager::mode2(int length) {

@@ -5,9 +5,12 @@ class AnonymousUsers :
 {
 public:
     AnonymousUsers(string password);
+    AnonymousUsers(wstring password);
     ~AnonymousUsers();
-    void save(const string file_name);
+    void save(const string file_name,string password);
+    void save(const string file_name, wstring password);
 private:
     string password;
+    wstring wpassword;
 };
 
