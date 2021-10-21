@@ -16,8 +16,8 @@ class Decoder
 	bool check(vector<int> _list, vector<int> path);
 	void backtracking(int startindex, string password);
 	void backtracking2(int startindex, vector<int> result);
-	vector<wstring> decrypt(string password);
+	void decrypt(string password);
 	void train();
-	string find_dir(char start,string dir_file);
+	vector<tuple<string, wstring>> find_dir(int start,string dir_file);
 };
 

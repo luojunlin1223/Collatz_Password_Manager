@@ -1,6 +1,7 @@
 #include "Decoder.h"
 #include "PasswordManager.h"
 #include <fstream>
+#include <iostream>
 Decoder::Decoder() {
 	for (int i = 1; i < 256; i++)
 	{
@@ -99,8 +100,7 @@ void Decoder::backtracking2(int startindex, vector<int> result) {
 		}
 	}
 }
-vector<wstring> Decoder::decrypt(string password) {
-	vector<wstring> _result;
+void Decoder::decrypt(string password) {
 	backtracking(0, password);
 
 	/*for (vector<vector<int>>::iterator it = result.begin(); it != result.end(); it++) {
@@ -114,14 +114,14 @@ vector<wstring> Decoder::decrypt(string password) {
 		_result.push_back(decrypted);
 	}*/
 
-	return _result;
 }
 void Decoder::train() {
 
 }
-string Decoder::find_dir(char start,string dir_file) {
+vector<tuple<string,wstring>> Decoder::find_dir(int start,string dir_file) {
 	wifstream in(dir_file);
 	string temp;
+	vector<tuple<string, wstring>> result;
 	if (!in) {
 		in.close();
 		throw exception("Can not find the file!");
@@ -129,8 +129,10 @@ string Decoder::find_dir(char start,string dir_file) {
 	else {
 		wstring word;
 		while (in >> word) {
-			temp = PasswordManager::encrypt(word,start-'0');
+			temp = PasswordManager::encrypt(word,start);
+			result.push_back(make_tuple(temp,word));
 		}
 		in.close();
 	}
+	return result;
 }
