@@ -15,6 +15,7 @@ Decoder::Decoder() {
 			map.insert(make_pair(step, lt));
 		}
 	}
+	this->pretreatment = map;
 }
 Decoder::~Decoder() {}
 bool Decoder::check(vector<int> _list, vector<int> path) {
@@ -100,7 +101,8 @@ void Decoder::backtracking2(int startindex, vector<int> result) {
 vector<wstring> Decoder::decrypt(string password) {
 	vector<wstring> _result;
 	backtracking(0, password);
-	for (vector<vector<int>>::iterator it = result.begin(); it != result.end(); it++) {
+
+	/*for (vector<vector<int>>::iterator it = result.begin(); it != result.end(); it++) {
 		backtracking2(0, *it);
 	}
 	for (vector<vector<int>>::iterator it = result2.begin(); it != result2.end(); it++) {
@@ -109,21 +111,10 @@ vector<wstring> Decoder::decrypt(string password) {
 			decrypted.push_back(wchar_t(*_it));
 		}
 		_result.push_back(decrypted);
-	}
+	}*/
+
 	return _result;
-	//vector<int> test;
-	//test.push_back(100);
-	//test.push_back(110);
-	//test.push_back(102);
-	//test.push_back(53);
-	//test.push_back(50);
-	//test.push_back(56);
-	//test.push_back(53);
-	//test.push_back(55);
-	//test.push_back(49);
-	//for (vector<vector<int>>::iterator it = result2.begin(); it != result2.end(); it++) {
-	//	if (equal(it->begin(), it->begin() + it->size(), test.begin()))
-	//		int i = 0;
-	//		//find it!
-	//}
+}
+void Decoder::train() {
+
 }

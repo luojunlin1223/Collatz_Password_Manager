@@ -62,8 +62,34 @@ int main() {
 		}
 		case 4: {
 			Decoder decoder;
-			vector<wstring> test;
-			test = decoder.decrypt("27322810313331033910211452912207344136146925461033281533271031012815108114101");
+			string test;
+			unordered_map<string, wstring> map;
+			wifstream in("train.txt");
+			if (!in) {
+				in.close();
+				throw exception("Can not find the file!");
+			}
+			else {
+				wstring word;
+				while (in >> word) {
+					test = PasswordManager::encrypt(word);
+					map.insert(make_pair(test, word));
+				}
+				in.close();
+			}
+			//decoder.decrypt("27322810313331033910211452912207344136146925461033281533271031012815108114101");
+			string password = "27322810313331033910211452912207344136146925461033281533271031012815108114101";
+			decoder.decrypt(password);
+			for (int i = 0; i < password.size(); i++) {
+				for (int j = 1; j < password.size(); j++) {
+					string sub = password.substr(i, j);
+					for (unordered_map<string, wstring>::iterator it = map.begin(); it != map.end(); it++) {
+						if (sub == it->first) {
+							wcout << it->second << endl;
+						}
+					}
+				}
+			}	
 			int i = 0;
 			break;
 		}

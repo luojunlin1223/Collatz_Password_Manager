@@ -8,6 +8,7 @@ class Decoder
 	Decoder();
 	~Decoder();
 	unordered_map<int, vector<int>> map;
+	unordered_map<int, vector<int>> pretreatment;
 	vector<vector<int>> result;
 	vector<vector<int>> result2;
 	vector<int> path;
@@ -16,5 +17,6 @@ class Decoder
 	void backtracking(int startindex, string password);
 	void backtracking2(int startindex, vector<int> result);
 	vector<wstring> decrypt(string password);
+	void train();
 };
 
