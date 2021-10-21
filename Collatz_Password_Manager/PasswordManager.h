@@ -11,7 +11,7 @@ public:
 	vector<int> path;
 	vector<int> result;
 	static int collatz(int value);
-	static string encrypt(wstring password);
+	static string encrypt(wstring password,int _offset);
 	static string generate_password();
 	static wstring mode1(int length);
 	static wstring mode2(int length);

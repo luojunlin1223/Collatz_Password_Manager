@@ -15,8 +15,8 @@ int PasswordManager::collatz(int value) {
 	}
 	return step;
 }
-string PasswordManager::encrypt(wstring password) {
-	int offset = 0;
+string PasswordManager::encrypt(wstring password,int _offset) {
+	int offset = _offset;
 	string encrypted;
 	for (auto temp = password.begin(); temp != password.end(); temp++) {
 		offset = collatz(((int)((wchar_t)(*temp)) + offset));
@@ -31,16 +31,16 @@ string PasswordManager::generate_password() {
 	for (int i = 1; i <10001 ; i++)
 	{
 		if (i % 100 == 0)
-			password += encrypt(mode1(i / 100)) + '\n';
+			password += encrypt(mode1(i / 100),0) + '\n';
 		else
-			password += encrypt(mode1((i - 1) / 100 + 1)) + '\n';
+			password += encrypt(mode1((i - 1) / 100 + 1),0) + '\n';
 	}
 	for (int i = 1; i < 10001; i++)
 	{
 		if (i % 100 == 0)
-			password += encrypt(mode2(i / 100)) + '\n';
+			password += encrypt(mode2(i / 100),0) + '\n';
 		else
-			password += encrypt(mode2((i - 1) / 100 + 1)) + '\n';
+			password += encrypt(mode2((i - 1) / 100 + 1),0) + '\n';
 	}
 	
 	return password;

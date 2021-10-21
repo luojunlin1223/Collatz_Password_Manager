@@ -1,5 +1,6 @@
 #include "Decoder.h"
 #include "PasswordManager.h"
+#include <fstream>
 Decoder::Decoder() {
 	for (int i = 1; i < 256; i++)
 	{
@@ -117,4 +118,19 @@ vector<wstring> Decoder::decrypt(string password) {
 }
 void Decoder::train() {
 
+}
+string Decoder::find_dir(char start,string dir_file) {
+	wifstream in(dir_file);
+	string temp;
+	if (!in) {
+		in.close();
+		throw exception("Can not find the file!");
+	}
+	else {
+		wstring word;
+		while (in >> word) {
+			temp = PasswordManager::encrypt(word,start-'0');
+		}
+		in.close();
+	}
 }

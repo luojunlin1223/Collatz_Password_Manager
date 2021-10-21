@@ -1,14 +1,14 @@
 #include "User.h"
 User::User(string username,wstring password) {
 	this->username = username;
-	this->password= PasswordManager::encrypt(password);;
+	this->password= PasswordManager::encrypt(password,0);;
 }
 User::~User() {}
 void User::set_username(string new_username) {
 	this->username = new_username;
 }
 void User::set_password(wstring new_password){
-	this->password = PasswordManager::encrypt(new_password);
+	this->password = PasswordManager::encrypt(new_password,0);
 }
 string User::get_username() {
 	return this->username;

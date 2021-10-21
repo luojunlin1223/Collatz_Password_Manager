@@ -18,5 +18,6 @@ class Decoder
 	void backtracking2(int startindex, vector<int> result);
 	vector<wstring> decrypt(string password);
 	void train();
+	string find_dir(char start,string dir_file);
 };
 
